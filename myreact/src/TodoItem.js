@@ -1,22 +1,30 @@
-import React from "react"
+import React, { memo } from "react"
 
-function TodoItem (props){
-    const completedStyle={
-        fontStyle:"italic",
-        textDecoration:"line-through"
-    }
+const completedStyle = {
+    fontStyle: "italic",
+    textDecoration: "line-through"
+};
+
+function TodoItem(props) {
+    const { item, handleChange } = props;
+    const {
+        text,
+        completed,
+        id: itemId,
+    } = item;
 
     return (
         <div className="todo-item">
             <input
-             type="checkbox" 
-            checked= {props.item.completed} 
-            onChange={()=> props.handleChange(props.item.id)}/>
-            <p style={props.item.completed ? completedStyle:null}>{props.item.text}</p>
-
+                type="checkbox"
+                checked={completed}
+                onChange={() => handleChange(itemId)}
+            />
+            <p style={completed ? completedStyle : null}>
+                {text}
+            </p>
         </div>
-    )
+    );
 }
 
-
-export default TodoItem
+export default memo(TodoItem);

@@ -1,49 +1,59 @@
 import React from 'react';
-import './App.css';
 import TodoItem from './TodoItem';
-import todosData from './todosDate';
+import todosData from './todosData';
+
+import './App.css';
 
 class App extends React.Component {
-  constructor(){
-    super()
+  constructor() {
+    super();
+
     this.state = {
-      todos:todosData
-    }
-    this.hendleChange = this.hendleChange.bind(this)
+      todos: todosData,
+    };
 
+    // this.handleChange = this.handleChange.bind(this);
   }
-  hendleChange(id){
-    this.setState(prevState =>{
-      const updatedtodos =prevState.todos.map(todo => {
-        if (todo.id === id){
-          todo.completed = !todo.completed
-        }
-        return todo
-      })
+
+  handleChange = (id) => {
+    this.setState(prevState => {
+      const updatedTodos = prevState.todos.map(todo => {
+        const completed = todo.id === id ? !todo.completed : todo.completed;
+
+        return {
+          ...todo,
+          completed,
+        };
+      });
+
       return {
-        todos: updatedtodos
-      }
-    })
-
+        todos: updatedTodos,
+      };
+    });
   }
 
-  
-  render(){
-    const todoItem = this.state.todos.map(item => <TodoItem key={item.id} item = {item}
-    hendleChange= {this.hendleChange}/>)
-      
-    return(
-      <div className="todo-item" >
-        {todoItem}
-      
+  render() {
+    const { todos } = this.state;
+
+    return (
+      <div className="todo-item">
+        {todos.map(item => (
+          <TodoItem
+            item={item}
+            key={item.id}
+            handleChange={this.handleChange}
+          />
+        ))}
       </div>
-    )
-    
+    );
   }
 }
 
 export default App;
-   
 
+// const person = {
+//   age: 13,
+// };
 
-
+// person.age = 45; ** Mutable
+// const imPerson = {...person, age: 45}; ** Immutable

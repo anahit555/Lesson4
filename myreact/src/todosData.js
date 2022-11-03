@@ -20,6 +20,11 @@ const todosData = [
         text: "Take out the trash",
         completed: false
     },
+    {
+        id: 5,
+        text: "Do the homework",
+        completed: false
+    },
 ]
 
-export default todosData
+export default todosData;
